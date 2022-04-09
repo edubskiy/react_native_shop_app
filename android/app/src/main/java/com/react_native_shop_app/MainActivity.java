@@ -1,6 +1,6 @@
-import android.os.Bundle;
-
 package com.react_native_shop_app;
+
+import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

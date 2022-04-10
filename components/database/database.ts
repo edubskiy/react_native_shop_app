@@ -1,4 +1,6 @@
-export const COLOURS = {
+import {Item} from './item.entity';
+
+export const COLORS = {
   white: '#ffffff',
   black: '#000000',
   green: '#00AC76',
@@ -9,7 +11,7 @@ export const COLOURS = {
   backgroundDark: '#777777',
 };
 
-export const Items = [
+export const Items: Item[] = [
   {
     id: 1,
     category: 'product',

@@ -13,7 +13,7 @@ import {
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Cart} from './components/screens/cart/cart.component';
 import {Home} from './components/screens/home/home.component';
-import {ProductInfoComponent as ProductInfo} from './components/screens/product-info/product-info.component';
+import {ProductInfo} from './components/screens/product-info/product-info.component';
 
 const App = () => {
   const Stack = createNativeStackNavigator();

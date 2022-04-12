@@ -1,4 +1,4 @@
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {
@@ -11,9 +11,15 @@ import {
 } from 'react-native';
 
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {Cart} from './components/screens/cart/cart.component';
-import {Home} from './components/screens/home/home.component';
-import {ProductInfoComponent as ProductInfo} from './components/screens/product-info/product-info.component';
+import {Cart} from './app/screens/cart/cart.component';
+import {Home} from './app/screens/home/home.component';
+import {ProductInfo} from './app/screens/product-info/product-info.component';
+
+export type RootStackParamList = {
+  Home: undefined;
+  Cart: undefined;
+  ProductInfo: undefined;
+};
 
 const App = () => {
   const Stack = createNativeStackNavigator();

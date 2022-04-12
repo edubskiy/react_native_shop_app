@@ -24,7 +24,7 @@ interface Props {
 
 export const Home: React.FC<Props> = ({navigation}) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [accessory, setAccessory] = useState<Product[]>([]);
+  const [accessories, setAccessories] = useState<Product[]>([]);
 
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -37,7 +37,7 @@ export const Home: React.FC<Props> = ({navigation}) => {
       const {products, accessories} = getDataFromDB();
 
       setProducts(products);
-      setAccessory(accessories);
+      setAccessories(accessories);
     });
 
     return unsubscribe;
@@ -118,7 +118,7 @@ export const Home: React.FC<Props> = ({navigation}) => {
             </Text>
           </View>
           <ProductsSection data={products} />
-          <AccessoriesSection data={accessory} />
+          <AccessoriesSection data={accessories} />
         </ScrollView>
       </View>
     </SafeAreaView>

@@ -3,12 +3,23 @@ import {Image, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {COLORS} from '../../store/repository/database';
 import {Product} from '../../store/repository/product.entity';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../../App';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 interface Props {
   data: Product;
 }
 
+type NavigationProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Home',
+  'ProductInfo'
+>;
+
 export const CatalogCard: React.FC<Props> = ({data}) => {
+  const navigation = useNavigation<NavigationProps['navigation']>();
   return (
     <View
       style={{
@@ -16,7 +27,7 @@ export const CatalogCard: React.FC<Props> = ({data}) => {
         // flex: 1,
         marginVertical: 14,
       }}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('ProductInfo')}>
         <View
           style={{
             // width: '100%',
@@ -32,7 +43,7 @@ export const CatalogCard: React.FC<Props> = ({data}) => {
             <View
               style={{
                 position: 'absolute',
-                width: '20%',
+                width: '25%',
                 height: '24%',
                 backgroundColor: COLORS.green,
                 top: 0,
@@ -49,7 +60,7 @@ export const CatalogCard: React.FC<Props> = ({data}) => {
                   fontWeight: 'bold',
                   letterSpacing: 1,
                 }}>
-                {data.offPercentage}
+                {data.offPercentage}%
               </Text>
             </View>
           ) : null}
@@ -72,7 +83,23 @@ export const CatalogCard: React.FC<Props> = ({data}) => {
           }}>
           {data.productName}
         </Text>
-        {data.category === 'accessory' ? null : null}
+        {data.category === 'accessory' ? (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <FontAwesome
+              name="circle"
+              style={{fontSize: 12, marginRight: 6, color: COLORS.green}}
+            />
+            <Text style={{fontSize: 12, color: COLORS.green}}>Available</Text>
+          </View>
+        ) : (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <FontAwesome
+              name="circle"
+              style={{fontSize: 12, marginRight: 6, color: COLORS.red}}
+            />
+            <Text style={{fontSize: 12, color: COLORS.red}}>Unvailable</Text>
+          </View>
+        )}
         <Text>&#8377; {data.productPrice}</Text>
       </TouchableOpacity>
     </View>

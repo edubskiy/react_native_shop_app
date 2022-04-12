@@ -14,23 +14,21 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Product} from '../../store/repository/product.entity';
-import {CatalogCard} from '../../components/catalog-card/catalog-card.component';
 import {AccessoriesSection, ProductsSection} from './home.sections';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../App';
 
-interface Props {
-  // TODO
-  navigation: any;
-}
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export const Home: React.FC<Props> = ({navigation}) => {
+export const Home: React.FC<Props> = ({navigation}: Props) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [accessories, setAccessories] = useState<Product[]>([]);
 
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {

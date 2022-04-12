@@ -6,13 +6,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {COLORS, Items} from '../../database/database';
+import {COLORS, Items} from '../../store/repository/database';
+
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {ScrollView} from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Item} from '../../database/item.entity';
+import {Product} from '../../store/repository/product.entity';
+import {CatalogCard} from '../../components/catalog-card/catalog-card.component';
 
 interface HomeProps {
   // TODO
@@ -20,8 +22,8 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({navigation}) => {
-  const [products, setProducts] = useState<Item[]>([]);
-  const [accessory, setAccessory] = useState<Item[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [accessory, setAccessory] = useState<Product[]>([]);
 
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -141,6 +143,11 @@ export const Home: React.FC<HomeProps> = ({navigation}) => {
             <Text style={{fontSize: 14, color: COLORS.blue, fontWeight: '400'}}>
               See All
             </Text>
+          </View>
+          <View>
+            {products.map(product => {
+              return <CatalogCard data={product} />;
+            })}
           </View>
         </ScrollView>
       </View>

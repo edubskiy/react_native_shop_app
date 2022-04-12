@@ -15,6 +15,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Product} from '../../store/repository/product.entity';
 import {CatalogCard} from '../../components/catalog-card/catalog-card.component';
+import {AccessoriesSection, ProductsSection} from './home.sections';
 
 interface Props {
   // TODO
@@ -116,61 +117,8 @@ export const Home: React.FC<Props> = ({navigation}) => {
               {'\n'}This shop offers both products and services
             </Text>
           </View>
-          <View
-            style={{
-              padding: 16,
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: COLORS.black,
-                    fontWeight: '500',
-                    letterSpacing: 1,
-                  }}>
-                  Products
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: COLORS.black,
-                    fontWeight: '400',
-                    opacity: 0.5,
-                    marginLeft: 10,
-                  }}>
-                  41
-                </Text>
-              </View>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: COLORS.blue,
-                  fontWeight: '400',
-                }}>
-                SeeAll
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                // flexWrap: 'wrap',
-                justifyContent: 'space-around',
-              }}>
-              {products.map(data => {
-                return <CatalogCard data={data} key={data.id} />;
-              })}
-            </View>
-          </View>
+          <ProductsSection data={products} />
+          <AccessoriesSection data={accessory} />
         </ScrollView>
       </View>
     </SafeAreaView>

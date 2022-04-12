@@ -16,12 +16,12 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Product} from '../../store/repository/product.entity';
 import {CatalogCard} from '../../components/catalog-card/catalog-card.component';
 
-interface HomeProps {
+interface Props {
   // TODO
   navigation: any;
 }
 
-export const Home: React.FC<HomeProps> = ({navigation}) => {
+export const Home: React.FC<Props> = ({navigation}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [accessory, setAccessory] = useState<Product[]>([]);
 
@@ -88,7 +88,6 @@ export const Home: React.FC<HomeProps> = ({navigation}) => {
                   color: COLORS.backgroundMedium,
                   padding: 12,
                   borderRadius: 10,
-                  // borderWidth: 1,
                   backgroundColor: COLORS.backgroundLight,
                 }}></MaterialCommunityIcons>
             </TouchableOpacity>
@@ -120,34 +119,57 @@ export const Home: React.FC<HomeProps> = ({navigation}) => {
           <View
             style={{
               padding: 16,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
             }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text
-                style={{fontSize: 18, color: COLORS.black, fontWeight: '500'}}>
-                Products
-              </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: COLORS.black,
+                    fontWeight: '500',
+                    letterSpacing: 1,
+                  }}>
+                  Products
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: COLORS.black,
+                    fontWeight: '400',
+                    opacity: 0.5,
+                    marginLeft: 10,
+                  }}>
+                  41
+                </Text>
+              </View>
               <Text
                 style={{
                   fontSize: 14,
-                  color: COLORS.black,
+                  color: COLORS.blue,
                   fontWeight: '400',
-                  opacity: 0.5,
-                  marginLeft: 10,
                 }}>
-                41
+                SeeAll
               </Text>
             </View>
-            <Text style={{fontSize: 14, color: COLORS.blue, fontWeight: '400'}}>
-              See All
-            </Text>
-          </View>
-          <View>
-            {products.map(product => {
-              return <CatalogCard data={product} />;
-            })}
+            <View
+              style={{
+                flexDirection: 'row',
+                // flexWrap: 'wrap',
+                justifyContent: 'space-around',
+              }}>
+              {products.map(data => {
+                return <CatalogCard data={data} key={data.id} />;
+              })}
+            </View>
           </View>
         </ScrollView>
       </View>

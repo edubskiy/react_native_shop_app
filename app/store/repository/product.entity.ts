@@ -1,12 +1,14 @@
+import {ImageSourcePropType} from 'react-native';
+
 export interface Product {
   id: number;
   category: 'product' | 'accessory';
-  productName?: string;
-  productPrice?: number;
+  productImage: ImageSourcePropType;
+  productName: string;
+  productPrice: number;
   description?: string;
   isOff?: boolean;
   offPercentage?: number;
-  productImage?: string;
   isAvailable?: boolean;
   productImageList?: Array<string>;
 }

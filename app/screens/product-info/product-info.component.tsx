@@ -166,6 +166,37 @@ export const ProductInfo = ({ route, navigation }: Props) => {
               })}
             </View>
           </View>
+          <View style={{ paddingHorizontal: 16, marginTop: 6 }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: 14,
+              }}
+            >
+              <Entypo
+                name="shopping-cart"
+                style={{ fontSize: 20, color: COLORS.blue, marginRight: 6 }}
+              />
+              <Text style={{ fontSize: 12, color: COLORS.black }}>
+                Shopping
+              </Text>
+            </View>
+            <View style={{}}>
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: '600',
+                  marginVertical: 4,
+                  letterSpacing: 0.5,
+                  color: COLORS.black,
+                  maxWidth: '84%',
+                }}
+              >
+                {product?.productName}
+              </Text>
+            </View>
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>

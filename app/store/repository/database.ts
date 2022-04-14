@@ -11,7 +11,7 @@ export const COLORS = {
   backgroundDark: '#777777',
 };
 
-export const Items: Product[] = [
+export const Products: Product[] = [
   {
     id: 1,
     category: 'product',

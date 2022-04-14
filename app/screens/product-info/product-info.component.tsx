@@ -9,6 +9,7 @@ import {
   ListRenderItemInfo,
   ImageSourcePropType,
   Dimensions,
+  Animated,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -26,6 +27,8 @@ export const ProductInfo = ({ route, navigation }: Props) => {
   const { productId } = route.params
 
   const windowWidth = Dimensions.get('window').width
+  const scrollX = new Animated.Value(0)
+  const position = Animated.divide(scrollX, windowWidth)
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -122,7 +125,46 @@ export const ProductInfo = ({ route, navigation }: Props) => {
               data={product?.productImageList ?? null}
               horizontal
               renderItem={renderProduct}
+              showsHorizontalScrollIndicator={false}
+              decelerationRate={0.8}
+              snapToInterval={windowWidth}
+              bounces={false}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                { useNativeDriver: false }
+              )}
             />
+            <View
+              style={{
+                width: '100%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: 32,
+                marginBottom: 16,
+              }}
+            >
+              {product?.productImageList?.map((product, index) => {
+                const opacity = position.interpolate({
+                  inputRange: [index - 1, index, index + 1],
+                  outputRange: [0.2, 1, 0.2],
+                  extrapolate: 'clamp',
+                })
+                return (
+                  <Animated.View
+                    key={index}
+                    style={{
+                      width: '16%',
+                      height: 2.4,
+                      backgroundColor: COLORS.black,
+                      opacity: opacity,
+                      marginHorizontal: 4,
+                      borderRadius: 100,
+                    }}
+                  ></Animated.View>
+                )
+              })}
+            </View>
           </View>
         </ScrollView>
       </View>

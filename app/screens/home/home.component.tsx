@@ -4,12 +4,11 @@ import {
   useColorScheme,
   StatusBar,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {COLORS, Items} from '../../store/repository/database';
-
+import {COLORS, Products} from '../../store/repository/database';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {ScrollView} from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -42,8 +41,8 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
   }, [navigation]);
 
   const getDataFromDB = () => {
-    const products = Items.filter(i => i.category === 'product');
-    const accessories = Items.filter(i => i.category === 'accessory');
+    const products = Products.filter(i => i.category === 'product');
+    const accessories = Products.filter(i => i.category === 'accessory');
 
     return {
       products,

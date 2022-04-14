@@ -1,14 +1,6 @@
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Cart} from './app/screens/cart/cart.component';
@@ -18,7 +10,7 @@ import {ProductInfo} from './app/screens/product-info/product-info.component';
 export type RootStackParamList = {
   Home: undefined;
   Cart: undefined;
-  ProductInfo: undefined;
+  ProductInfo: {productId: number};
 };
 
 const App = () => {

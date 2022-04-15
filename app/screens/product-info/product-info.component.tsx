@@ -18,6 +18,7 @@ import { RootStackParamList } from '../../../App'
 import { COLORS, Products } from '../../store/repository/database'
 import { Product } from '../../store/repository/product.entity'
 import Entypo from 'react-native-vector-icons/Entypo'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ProductInfo'>
@@ -195,6 +196,7 @@ export const ProductInfo = ({ route, navigation }: Props) => {
               >
                 {product?.productName}
               </Text>
+              <Ionicons name="link-outline" />
             </View>
           </View>
         </ScrollView>

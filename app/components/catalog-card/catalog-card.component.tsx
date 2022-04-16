@@ -1,12 +1,12 @@
 import React from 'react'
-import { Image, Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { COLORS } from '../../store/repository/database'
 import { Product } from '../../store/repository/product.entity'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../../../App'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { currencySign } from '../../constants/common'
 
 interface Props {
   data: Product
@@ -111,7 +111,9 @@ export const CatalogCard: React.FC<Props> = ({ data }) => {
             <Text style={{ fontSize: 12, color: COLORS.red }}>Unvailable</Text>
           </View>
         )}
-        <Text>&#8377; {data.productPrice}</Text>
+        <Text>
+          {currencySign} {data.productPrice}
+        </Text>
       </TouchableOpacity>
     </View>
   )

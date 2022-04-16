@@ -92,10 +92,12 @@ export const ProductInfo = ({ route, navigation }: Props) => {
           JSON.stringify([...cartProductIds, productId])
         )
 
-        ToastAndroid.show(
-          'Product has been succcessfully added to cart',
-          ToastAndroid.SHORT
-        )
+        if (Platform.OS === 'android') {
+          ToastAndroid.show(
+            'Product has been succcessfully added to cart',
+            ToastAndroid.SHORT
+          )
+        }
 
         navigation.navigate('Home')
       } catch (error) {
@@ -165,7 +167,7 @@ export const ProductInfo = ({ route, navigation }: Props) => {
                 paddingLeft: 16,
               }}
             >
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.pop()}>
                 <Entypo
                   name="chevron-left"
                   style={{

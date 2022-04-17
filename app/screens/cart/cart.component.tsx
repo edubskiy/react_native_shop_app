@@ -253,6 +253,244 @@ export const Cart = ({ navigation }: Props) => {
           <View style={{ marginHorizontal: 16 }}>
             {cartItems.length ? cartItems.map(renderCartItems) : null}
           </View>
+          <View>
+            <View
+              style={{
+                paddingHorizontal: 16,
+                marginVertical: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: COLORS.black,
+                  fontWeight: '500',
+                  letterSpacing: 1,
+                  marginBottom: 20,
+                }}
+              >
+                Delivery Location
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '100%',
+                    alignItems: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      backgroundColor: COLORS.backgroundLight,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: 12,
+                      borderRadius: 10,
+                      marginRight: 18,
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="truck-delivery-outline"
+                      style={{
+                        fontSize: 18,
+                        color: COLORS.blue,
+                      }}
+                    />
+                  </View>
+                  <View style={{ opacity: 0.7 }}>
+                    <Text style={{ fontWeight: '800', fontSize: 14 }}>
+                      7th Ave 57
+                    </Text>
+                    <Text>New York, USA</Text>
+                  </View>
+                </View>
+                <View>
+                  <MaterialCommunityIcons
+                    name="chevron-right"
+                    style={{ fontSize: 22, color: COLORS.black }}
+                  />
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                paddingHorizontal: 16,
+                marginVertical: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: COLORS.black,
+                  fontWeight: '500',
+                  letterSpacing: 1,
+                  marginBottom: 20,
+                }}
+              >
+                Payment Method
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '100%',
+                    alignItems: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      backgroundColor: COLORS.backgroundLight,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      padding: 12,
+                      borderRadius: 10,
+                      marginRight: 18,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        fontWeight: '900',
+                        color: COLORS.blue,
+                        letterSpacing: 1,
+                      }}
+                    >
+                      VISA
+                    </Text>
+                  </View>
+                  <View style={{ opacity: 0.7 }}>
+                    <Text style={{ fontWeight: '800', fontSize: 14 }}>
+                      Visa Classic
+                    </Text>
+                    <Text>****5542</Text>
+                  </View>
+                </View>
+                <View>
+                  <MaterialCommunityIcons
+                    name="chevron-right"
+                    style={{ fontSize: 22, color: COLORS.black }}
+                  />
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                paddingHorizontal: 16,
+                marginTop: 40,
+                marginBottom: 80,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: COLORS.black,
+                  fontWeight: '500',
+                  letterSpacing: 1,
+                  marginBottom: 20,
+                }}
+              >
+                Order Info
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: 8,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '400',
+                    maxWidth: '80%',
+                    color: COLORS.black,
+                    opacity: 0.5,
+                  }}
+                >
+                  Subtotal
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '400',
+                    color: COLORS.black,
+                    opacity: 0.8,
+                  }}
+                >
+                  {currencySign} {total}.00
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: 22,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '400',
+                    maxWidth: '80%',
+                    color: COLORS.black,
+                    opacity: 0.5,
+                  }}
+                >
+                  Shipping Tax
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '400',
+                    color: COLORS.black,
+                    opacity: 0.8,
+                  }}
+                >
+                  {currencySign} {total / 20}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '400',
+                    maxWidth: '80%',
+                    color: COLORS.black,
+                    opacity: 0.5,
+                  }}
+                >
+                  Total
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: '500',
+                    color: COLORS.black,
+                  }}
+                >
+                  {currencySign} {total + total / 20}
+                </Text>
+              </View>
+            </View>
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>

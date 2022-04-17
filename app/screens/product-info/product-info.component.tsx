@@ -23,7 +23,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { currencySign } from '../../constants/common';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Cart } from '../../store/cart/cart.entity';
+import { CartEntity } from '../../store/cart/cart.entity';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ProductInfo'>;
 
@@ -60,9 +60,6 @@ export const ProductInfo = ({ route, navigation }: Props) => {
     const cartProductIds = await cart.getIds();
     const newCartProductIds = [];
 
-    console.log('got cart product ids');
-    console.log(cartProductIds);
-
     try {
       if (cartProductIds) {
         newCartProductIds.push(...cartProductIds);
@@ -70,11 +67,11 @@ export const ProductInfo = ({ route, navigation }: Props) => {
 
       newCartProductIds.push(productId);
 
-      console.log('saving cart items');
-      console.log(newCartProductIds);
-      debugger;
+      // console.log('saving cart items');
+      // console.log(newCartProductIds);
+      // debugger;
 
-      cart.setIds(newCartProductIds);
+      await cart.setIds(newCartProductIds);
 
       if (Platform.OS === 'android') {
         ToastAndroid.show(
@@ -169,7 +166,7 @@ export const ProductInfo = ({ route, navigation }: Props) => {
                 paddingLeft: 16,
               }}
             >
-              <TouchableOpacity onPress={() => navigation.pop()}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Entypo
                   name="chevron-left"
                   style={{

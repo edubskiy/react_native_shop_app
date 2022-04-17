@@ -1,7 +1,7 @@
 import { Product } from './../repository/product.entity';
 import { CartService } from './cart.service';
 
-export class Cart {
+export class CartEntity {
   private service: CartService;
 
   constructor({ service }: { service: CartService }) {

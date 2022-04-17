@@ -2,8 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Product } from '../repository/product.entity';
 
 export interface CartService {
-  getKey: () => string;
-
   getIds: () => Promise<Array<Product['id']>>;
 
   setIds: (ids: Array<Product['id']>) => void;
@@ -12,7 +10,7 @@ export interface CartService {
 export class CartServiceImpl implements CartService {
   private key = 'cartItems';
 
-  public getKey() {
+  protected getKey() {
     return this.key;
   }
 
@@ -25,6 +23,8 @@ export class CartServiceImpl implements CartService {
   }
 
   public async setIds(ids: Array<Product['id']>) {
-    await AsyncStorage.setItem(this.getKey(), JSON.stringify(ids));
+    if (ids && ids.length) {
+      await AsyncStorage.setItem(this.getKey(), JSON.stringify(ids));
+    }
   }
 }

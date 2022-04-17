@@ -1,11 +1,11 @@
-import { View, Text, AsyncStorage } from 'react-native';
-// import {AsyncStorage  } from 'react-native-com'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Product } from '../../store/repository/product.entity';
-import { RootStackParamList } from '../../../App';
+import { cart, RootStackParamList } from '../../../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Products } from '../../store/repository/database';
+import { COLORS, Products } from '../../store/repository/database';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Cart'>;
 
@@ -25,26 +25,80 @@ export const Cart = ({ navigation }: Props) => {
   }, [navigation]);
 
   const getDataFromDB = async (): Promise<Product[]> => {
-    const foundCartItems = await AsyncStorage.getItem('cartItems');
-
-    console.log('found cart items');
-    console.log(foundCartItems);
-
-    if (!foundCartItems) return [];
-
-    const productIds: Array<Product['id']> = JSON.parse(foundCartItems);
+    const productIds = await cart.getIds();
 
     return Products.filter((p) => productIds.indexOf(p.id) > -1);
   };
 
+  const renderCartItems = (data: Product, index: number) => {
+    return (
+      <View key={data.id}>
+        <Text>{data.productName}</Text>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView>
-      <View>
-        {cartItems.length
-          ? cartItems.map((product) => {
-              return <Text>{product.productName}</Text>;
-            })
-          : null}
+      <View
+        style={{
+          width: '100%',
+          height: '100%',
+          backgroundColor: COLORS.white,
+        }}
+      >
+        <ScrollView>
+          <View
+            style={{
+              width: '100%',
+              flexDirection: 'row',
+              paddingTop: 16,
+              paddingHorizontal: 16,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <View
+                style={{
+                  padding: 12,
+                  backgroundColor: COLORS.backgroundLight,
+                  borderRadius: 12,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="chevron-left"
+                  style={{
+                    fontSize: 18,
+                    color: COLORS.backgroundDark,
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
+            <Text
+              style={{ fontSize: 14, color: COLORS.black, fontWeight: '400' }}
+            >
+              Order details
+            </Text>
+            <View></View>
+          </View>
+          <Text
+            style={{
+              fontSize: 20,
+              color: COLORS.black,
+              fontWeight: '500',
+              letterSpacing: 1,
+              paddingTop: 20,
+              paddingLeft: 16,
+              marginBottom: 20,
+            }}
+          >
+            My Cart
+          </Text>
+          <View>
+            {cartItems.length ? cartItems.map(renderCartItems) : null}
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

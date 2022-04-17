@@ -1,11 +1,12 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { Cart } from './app/screens/cart/cart.component';
 
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 import { Home } from './app/screens/home/home.component';
 import { ProductInfo } from './app/screens/product-info/product-info.component';
-import { Cart } from './app/store/cart/cart.entity';
+import { CartEntity } from './app/store/cart/cart.entity';
 import { CartServiceImpl } from './app/store/cart/cart.service';
 
 export type RootStackParamList = {
@@ -14,8 +15,7 @@ export type RootStackParamList = {
   ProductInfo: { productId: number };
 };
 
-// TODO inject service
-export const cart = new Cart({
+export const cart = new CartEntity({
   service: new CartServiceImpl(),
 });
 

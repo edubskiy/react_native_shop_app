@@ -1,9 +1,11 @@
 import { View, Text, AsyncStorage } from 'react-native';
+// import {AsyncStorage  } from 'react-native-com'
 import React, { useEffect, useState } from 'react';
 import { Product } from '../../store/repository/product.entity';
 import { RootStackParamList } from '../../../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Products } from '../../store/repository/database';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Cart'>;
 
@@ -25,6 +27,9 @@ export const Cart = ({ navigation }: Props) => {
   const getDataFromDB = async (): Promise<Product[]> => {
     const foundCartItems = await AsyncStorage.getItem('cartItems');
 
+    console.log('found cart items');
+    console.log(foundCartItems);
+
     if (!foundCartItems) return [];
 
     const productIds: Array<Product['id']> = JSON.parse(foundCartItems);
@@ -33,8 +38,14 @@ export const Cart = ({ navigation }: Props) => {
   };
 
   return (
-    <View>
-      <Text>Cart</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+        {cartItems.length
+          ? cartItems.map((product) => {
+              return <Text>{product.productName}</Text>;
+            })
+          : null}
+      </View>
+    </SafeAreaView>
   );
 };

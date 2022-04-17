@@ -6,20 +6,20 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {COLORS, Products} from '../../store/repository/database';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import React, { useEffect, useState } from 'react';
+import { COLORS, Products } from '../../store/repository/database';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Product} from '../../store/repository/product.entity';
-import {AccessoriesSection, ProductsSection} from './home.sections';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../App';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Product } from '../../store/repository/product.entity';
+import { AccessoriesSection, ProductsSection } from './home.sections';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../App';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export const Home: React.FC<Props> = ({navigation}: Props) => {
+export const Home: React.FC<Props> = ({ navigation }: Props) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [accessories, setAccessories] = useState<Product[]>([]);
 
@@ -31,7 +31,7 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      const {products, accessories} = getDataFromDB();
+      const { products, accessories } = getDataFromDB();
 
       setProducts(products);
       setAccessories(accessories);
@@ -41,8 +41,8 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
   }, [navigation]);
 
   const getDataFromDB = () => {
-    const products = Products.filter(i => i.category === 'product');
-    const accessories = Products.filter(i => i.category === 'accessory');
+    const products = Products.filter((i) => i.category === 'product');
+    const accessories = Products.filter((i) => i.category === 'accessory');
 
     return {
       products,
@@ -57,7 +57,8 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
           width: '100%',
           height: '100%',
           backgroundColor: COLORS.white,
-        }}>
+        }}
+      >
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
@@ -66,7 +67,8 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               padding: 16,
-            }}>
+            }}
+          >
             <TouchableOpacity>
               <Entypo
                 name="shopping-bag"
@@ -76,9 +78,10 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
                   padding: 12,
                   borderRadius: 10,
                   backgroundColor: COLORS.backgroundLight,
-                }}></Entypo>
+                }}
+              ></Entypo>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
               <MaterialCommunityIcons
                 name="cart"
                 style={{
@@ -87,10 +90,11 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
                   padding: 12,
                   borderRadius: 10,
                   backgroundColor: COLORS.backgroundLight,
-                }}></MaterialCommunityIcons>
+                }}
+              ></MaterialCommunityIcons>
             </TouchableOpacity>
           </View>
-          <View style={{marginBottom: 10, padding: 16}}>
+          <View style={{ marginBottom: 10, padding: 16 }}>
             <Text
               style={{
                 fontSize: 26,
@@ -98,7 +102,8 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
                 fontWeight: '500',
                 letterSpacing: 1,
                 marginBottom: 10,
-              }}>
+              }}
+            >
               Hi-Fi Shop &amp; Service
             </Text>
             <Text
@@ -109,7 +114,8 @@ export const Home: React.FC<Props> = ({navigation}: Props) => {
                 letterSpacing: 1,
                 marginBottom: 10,
                 lineHeight: 24,
-              }}>
+              }}
+            >
               Audio shop on 7th Ave 57.
               {'\n'}This shop offers both products and services
             </Text>

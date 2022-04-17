@@ -12,107 +12,109 @@ import {
   Animated,
   ToastAndroid,
   Platform,
-} from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types'
-import { RootStackParamList } from '../../../App'
-import { COLORS, Products } from '../../store/repository/database'
-import { Product } from '../../store/repository/product.entity'
-import Entypo from 'react-native-vector-icons/Entypo'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
-import { currencySign } from '../../constants/common'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
+import { cart, RootStackParamList } from '../../../App';
+import { COLORS, Products } from '../../store/repository/database';
+import { Product } from '../../store/repository/product.entity';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { currencySign } from '../../constants/common';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Cart } from '../../store/cart/cart.entity';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'ProductInfo'>
+type Props = NativeStackScreenProps<RootStackParamList, 'ProductInfo'>;
 
 export const ProductInfo = ({ route, navigation }: Props) => {
-  const [product, setProduct] = useState<Product | null>(null)
-  const { productId } = route.params
+  const [product, setProduct] = useState<Product | null>(null);
+  const { productId } = route.params;
 
-  const windowWidth = Dimensions.get('window').width
-  const scrollX = new Animated.Value(0)
-  const position = Animated.divide(scrollX, windowWidth)
-  const productTax = product?.productPrice! / 20
+  const windowWidth = Dimensions.get('window').width;
+  const scrollX = new Animated.Value(0);
+  const position = Animated.divide(scrollX, windowWidth);
+  const productTax = product?.productPrice! / 20;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      const { foundProduct } = getDataFromDB()
+      const { foundProduct } = getDataFromDB();
 
       if (foundProduct) {
-        setProduct(foundProduct)
+        setProduct(foundProduct);
       }
-    })
+    });
 
-    return unsubscribe
-  }, [navigation])
+    return unsubscribe;
+  }, [navigation]);
 
   const getDataFromDB = () => {
-    const foundProduct = Products.find((p) => p.id === productId)
+    const foundProduct = Products.find((p) => p.id === productId);
 
     return {
       foundProduct,
-    }
-  }
+    };
+  };
 
   const addToCart = async (productId: Product['id']) => {
-    const cartProductIds = JSON.parse(
-      (await AsyncStorage.getItem('cartItems')) as string
-    )
-    const newCartProductIds = []
+    const cartProductIds = await cart.getIds();
+    const newCartProductIds = [];
+
+    console.log('got cart product ids');
+    console.log(cartProductIds);
 
     try {
       if (cartProductIds) {
-        newCartProductIds.push([...cartProductIds])
+        newCartProductIds.push(...cartProductIds);
       }
 
-      newCartProductIds.push(productId)
+      newCartProductIds.push(productId);
 
-      await AsyncStorage.setItem('cartItems', JSON.stringify(newCartProductIds))
+      console.log('saving cart items');
+      console.log(newCartProductIds);
+      debugger;
+
+      cart.setIds(newCartProductIds);
 
       if (Platform.OS === 'android') {
         ToastAndroid.show(
           'Product has been succcessfully added to cart',
           ToastAndroid.SHORT
-        )
+        );
       } else {
         // TODO
       }
 
-      navigation.navigate('Home')
+      navigation.navigate('Home');
     } catch (error) {
-      return error
+      return error;
     }
 
     if (cartProductIds) {
       try {
-        await AsyncStorage.setItem(
-          'cartItems',
-          JSON.stringify([...cartProductIds, productId])
-        )
+        await cart.setIds([...cartProductIds, productId]);
 
         if (Platform.OS === 'android') {
           ToastAndroid.show(
             'Product has been succcessfully added to cart',
             ToastAndroid.SHORT
-          )
+          );
         }
 
-        navigation.navigate('Home')
+        navigation.navigate('Home');
       } catch (error) {
-        return error
+        return error;
       }
     } else {
     }
 
     // const foundProduct = Products.find((p) => p.id === productId)
-  }
+  };
 
   const renderProduct = (props: ListRenderItemInfo<ImageSourcePropType>) => {
-    const { item, index } = props
+    const { item, index } = props;
 
-    console.log(item, props)
+    console.log(item, props);
 
     return (
       <View
@@ -128,8 +130,8 @@ export const ProductInfo = ({ route, navigation }: Props) => {
           style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
         />
       </View>
-    )
-  }
+    );
+  };
 
   return (
     <SafeAreaView>
@@ -208,7 +210,7 @@ export const ProductInfo = ({ route, navigation }: Props) => {
                   inputRange: [index - 1, index, index + 1],
                   outputRange: [0.2, 1, 0.2],
                   extrapolate: 'clamp',
-                })
+                });
                 return (
                   <Animated.View
                     key={index}
@@ -221,7 +223,7 @@ export const ProductInfo = ({ route, navigation }: Props) => {
                       borderRadius: 100,
                     }}
                   ></Animated.View>
-                )
+                );
               })}
             </View>
           </View>
@@ -390,5 +392,5 @@ export const ProductInfo = ({ route, navigation }: Props) => {
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};

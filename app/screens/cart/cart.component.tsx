@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Product } from '../../store/repository/product.entity';
 import { cart, RootStackParamList } from '../../../App';
@@ -6,6 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { COLORS, Products } from '../../store/repository/database';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { currencySign } from '../../constants/common';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Cart'>;
 
@@ -30,11 +31,165 @@ export const Cart = ({ navigation }: Props) => {
     return Products.filter((p) => productIds.indexOf(p.id) > -1);
   };
 
+  const removeItemFromTheCart = (productId: Product['id']) => {
+    const newCartItems = cartItems.filter((i) => i.id !== productId);
+
+    setCartItems(newCartItems);
+
+    cart.setIds(newCartItems.map((i) => i.id));
+  };
+
   const renderCartItems = (data: Product, index: number) => {
     return (
-      <View key={data.id}>
-        <Text>{data.productName}</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ProductInfo', {
+            productId: data.id,
+          })
+        }
+        style={{
+          width: '100%',
+          height: 100,
+          marginVertical: 6,
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
+        <View
+          key={data.id}
+          style={{
+            width: '30%',
+            height: 100,
+            padding: 14,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: COLORS.backgroundLight,
+            borderRadius: 10,
+            marginRight: 22,
+          }}
+        >
+          <Image
+            source={data.productImage}
+            style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+          />
+        </View>
+        <View
+          style={{ flex: 1, height: '100%', justifyContent: 'space-around' }}
+        >
+          <View>
+            <Text
+              style={{
+                fontSize: 14,
+                maxWidth: '100%',
+                color: COLORS.black,
+                fontWeight: '600',
+                letterSpacing: 1,
+              }}
+            >
+              {data.productName}
+            </Text>
+            <View
+              style={{
+                marginTop: 4,
+                flexDirection: 'row',
+                alignItems: 'center',
+                opacity: 0.6,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: '400',
+                  maxWidth: '85%',
+                  marginRight: 4,
+                }}
+              >
+                {currencySign} {data.productPrice}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <TouchableOpacity>
+                <View
+                  style={{
+                    borderRadius: 100,
+                    marginRight: 20,
+                    padding: 4,
+                    borderWidth: 1,
+                    borderColor: COLORS.backgroundMedium,
+                    opacity: 0.5,
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="minus"
+                    style={{
+                      fontSize: 16,
+                      color: COLORS.backgroundDark,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <Text>1</Text>
+              <TouchableOpacity>
+                <View
+                  style={{
+                    borderRadius: 100,
+                    marginLeft: 20,
+                    padding: 4,
+                    borderWidth: 1,
+                    borderColor: COLORS.backgroundMedium,
+                    opacity: 0.5,
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="plus"
+                    style={{
+                      fontSize: 16,
+                      color: COLORS.backgroundDark,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                removeItemFromTheCart(data.id);
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: COLORS.backgroundLight,
+                  borderRadius: 10,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="delete-outline"
+                  style={{
+                    fontSize: 16,
+                    padding: 8,
+
+                    color: COLORS.backgroundDark,
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -95,7 +250,7 @@ export const Cart = ({ navigation }: Props) => {
           >
             My Cart
           </Text>
-          <View>
+          <View style={{ marginHorizontal: 16 }}>
             {cartItems.length ? cartItems.map(renderCartItems) : null}
           </View>
         </ScrollView>

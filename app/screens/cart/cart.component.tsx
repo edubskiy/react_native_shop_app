@@ -271,51 +271,53 @@ export const Cart = ({ navigation }: Props) => {
               >
                 Delivery Location
               </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                }}
-              >
+              <TouchableOpacity>
                 <View
                   style={{
                     flexDirection: 'row',
-                    width: '100%',
-                    alignItems: 'center',
+                    justifyContent: 'space-around',
                   }}
                 >
                   <View
                     style={{
-                      backgroundColor: COLORS.backgroundLight,
-                      justifyContent: 'center',
+                      flexDirection: 'row',
+                      width: '100%',
                       alignItems: 'center',
-                      padding: 12,
-                      borderRadius: 10,
-                      marginRight: 18,
                     }}
                   >
-                    <MaterialCommunityIcons
-                      name="truck-delivery-outline"
+                    <View
                       style={{
-                        fontSize: 18,
-                        color: COLORS.blue,
+                        backgroundColor: COLORS.backgroundLight,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: 12,
+                        borderRadius: 10,
+                        marginRight: 18,
                       }}
+                    >
+                      <MaterialCommunityIcons
+                        name="truck-delivery-outline"
+                        style={{
+                          fontSize: 18,
+                          color: COLORS.blue,
+                        }}
+                      />
+                    </View>
+                    <View style={{ opacity: 0.7 }}>
+                      <Text style={{ fontWeight: '800', fontSize: 14 }}>
+                        7th Ave 57
+                      </Text>
+                      <Text>New York, USA</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <MaterialCommunityIcons
+                      name="chevron-right"
+                      style={{ fontSize: 22, color: COLORS.black }}
                     />
                   </View>
-                  <View style={{ opacity: 0.7 }}>
-                    <Text style={{ fontWeight: '800', fontSize: 14 }}>
-                      7th Ave 57
-                    </Text>
-                    <Text>New York, USA</Text>
-                  </View>
                 </View>
-                <View>
-                  <MaterialCommunityIcons
-                    name="chevron-right"
-                    style={{ fontSize: 22, color: COLORS.black }}
-                  />
-                </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <View
               style={{
@@ -334,54 +336,56 @@ export const Cart = ({ navigation }: Props) => {
               >
                 Payment Method
               </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                }}
-              >
+              <TouchableOpacity>
                 <View
                   style={{
                     flexDirection: 'row',
-                    width: '100%',
-                    alignItems: 'center',
+                    justifyContent: 'space-around',
                   }}
                 >
                   <View
                     style={{
-                      backgroundColor: COLORS.backgroundLight,
-                      justifyContent: 'center',
+                      flexDirection: 'row',
+                      width: '100%',
                       alignItems: 'center',
-                      padding: 12,
-                      borderRadius: 10,
-                      marginRight: 18,
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        fontSize: 10,
-                        fontWeight: '900',
-                        color: COLORS.blue,
-                        letterSpacing: 1,
+                        backgroundColor: COLORS.backgroundLight,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: 12,
+                        borderRadius: 10,
+                        marginRight: 18,
                       }}
                     >
-                      VISA
-                    </Text>
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          fontWeight: '900',
+                          color: COLORS.blue,
+                          letterSpacing: 1,
+                        }}
+                      >
+                        VISA
+                      </Text>
+                    </View>
+                    <View style={{ opacity: 0.7 }}>
+                      <Text style={{ fontWeight: '800', fontSize: 14 }}>
+                        Visa Classic
+                      </Text>
+                      <Text>****5542</Text>
+                    </View>
                   </View>
-                  <View style={{ opacity: 0.7 }}>
-                    <Text style={{ fontWeight: '800', fontSize: 14 }}>
-                      Visa Classic
-                    </Text>
-                    <Text>****5542</Text>
+                  <View>
+                    <MaterialCommunityIcons
+                      name="chevron-right"
+                      style={{ fontSize: 22, color: COLORS.black }}
+                    />
                   </View>
                 </View>
-                <View>
-                  <MaterialCommunityIcons
-                    name="chevron-right"
-                    style={{ fontSize: 22, color: COLORS.black }}
-                  />
-                </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <View
               style={{
@@ -492,6 +496,39 @@ export const Cart = ({ navigation }: Props) => {
             </View>
           </View>
         </ScrollView>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 10,
+            height: '8%',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: '86%',
+              height: '90%',
+              backgroundColor: COLORS.blue,
+              borderRadius: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: '500',
+                letterSpacing: 1,
+                color: COLORS.white,
+                textTransform: 'uppercase',
+              }}
+            >
+              {'Checkout'}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
